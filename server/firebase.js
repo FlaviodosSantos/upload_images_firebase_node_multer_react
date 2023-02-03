@@ -11,7 +11,7 @@ const firebaseConfig = {
   appId: "1:1003746504962:web:7b85418f6c57eeca94d21b",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
-module.exports = getStorage(firebaseApp);
+module.exports = getStorage(app);

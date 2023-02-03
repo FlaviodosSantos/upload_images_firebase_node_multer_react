@@ -13,8 +13,35 @@ const memoStorage = multer.memoryStorage();
 const upload = multer({ memoStorage });
 
 // add a picture
+app.post("/addPicture", upload.single("pic"), async (req, res) => {
+  const file = req.file;
+  const imageRef = ref(storage, file.originalname);
+  const metatype = { contentType: file.mimetype, name: file.originalname };
+  await uploadBytes(imageRef, file.buffer, metatype)
+    .then((snapshot) => {
+      res.send("uploaded!");
+    })
+    .catch((error) => console.log(error.message));
+});
 
 // get all pictures
+
+app.get("/pictures", async (req, res) => {
+  const listRef = ref(storage);
+  let productPictures = [];
+  await listAll(listRef)
+    .then((pics) => {
+      productPictures = pics.items.map((item) => {
+        const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${item._location.bucket}/o/${item._location.path_}?alt=media`;
+        return {
+          url: publicUrl,
+          name: item._location.path_,
+        };
+      });
+      res.send(productPictures);
+    })
+    .catch((error) => console.log(error.message));
+});
 
 // delete a picture
 
