@@ -131,3 +131,4 @@ setupMiddlewares: (middlewares, devServer) => {
 
 https://github.com/DrVipinKumar/ReactAllProjects/blob/main/reactwithspring/public/MiddlewareDeprecationSolution.txt
 
+https://github.com/facebook/create-react-app/issues/12035#issuecomment-1149289491
