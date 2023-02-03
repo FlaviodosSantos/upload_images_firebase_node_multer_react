@@ -44,6 +44,15 @@ app.get("/pictures", async (req, res) => {
 });
 
 // delete a picture
+app.delete("/delete", async (req, res) => {
+  const deletePic = req.body.name;
+  const deleteRef = ref(storage, deletePic);
+  await deleteObject(deleteRef)
+    .then(() => {
+      res.send("deleted");
+    })
+    .catch((error) => console.log(error.message));
+});
 
 const PORT = 5000;
 app.listen(PORT, () => {
